@@ -1,0 +1,1 @@
+// global.secretJwt = 'your_secret_key';

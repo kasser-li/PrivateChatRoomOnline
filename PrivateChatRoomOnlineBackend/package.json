@@ -1,0 +1,53 @@
+{
+  "name": "privatechatroomserver",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "start": "nodemon dist/index.js",
+    "dev": "ts-node src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kasser-li/PrivateChatRoomServer.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kasser-li/PrivateChatRoomServer/issues"
+  },
+  "homepage": "https://github.com/kasser-li/PrivateChatRoomServer#readme",
+  "description": "my-backend-service/\r |-- src/\r |   |-- index.ts           // 主入口文件\r |   |-- models/            // 数据模型目录\r |   |   |-- User.ts        // 用户模型示例\r |   |-- routes/            // 路由目录\r |   |   |-- userRoutes.ts  // 用户路由示例\r |-- .env                   // 环境变量配置文件\r |-- package.json           // 项目配置文件\r |-- tsconfig.json          // TypeScript 配置文件",
+  "dependencies": {
+    "@types/express": "^5.0.1",
+    "@types/mongoose": "^5.11.97",
+    "bcryptjs": "^3.0.2",
+    "body-parser": "^2.2.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^5.1.0",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.13.2",
+    "morgan": "^1.10.0",
+    "reflect-metadata": "^0.2.2",
+    "routing-controllers": "^0.11.2",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.8.3",
+    "winston": "^3.17.0",
+    "yaml": "^2.7.1"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^3.0.0",
+    "@types/cookie-parser": "^1.4.8",
+    "@types/cors": "^2.8.17",
+    "@types/jsonwebtoken": "^9.0.9",
+    "@types/morgan": "^1.9.9",
+    "nodemon": "^3.1.9"
+  }
+}

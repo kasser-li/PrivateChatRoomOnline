@@ -1,0 +1,33 @@
+my-backend-service/
+|-- src/
+|   |-- index.ts           // 主入口文件
+|   |-- models/            // 数据模型目录
+|   |   |-- User.ts        // 用户模型示例
+|   |-- routes/            // 路由目录
+|   |   |-- userRoutes.ts  // 用户路由示例
+|-- .env                   // 环境变量配置文件
+|-- package.json           // 项目配置文件
+|-- tsconfig.json          // TypeScript 配置文件
+
+token机制   jwt (jsonwebtoken)
+加密机制    
+; reflect-metadata 装饰器
+使用 morgan 中间件来记录 HTTP 请求日志
+
+
+; 路由 接口格式
+src/
+├── routes/
+│   ├── index.ts
+│   ├── api/
+│   │   ├── testRouter.ts
+│   │   ├── userRouter.ts
+│   │   └── productRouter.ts
+├── controllers/
+│   ├── testController.ts
+│   ├── userController.ts
+├── middlewares/
+│   ├── authMiddleware.ts
+│   └── errorMiddleware.ts
+└── validators/
+    └── userValidator.ts

@@ -1,0 +1,101 @@
+// 配色方案
+// 深色模式
+.dark {
+  // 背景色1
+  .bgColor3 {
+    background-color: #1a1e24; /* 深色模式背景色 */
+  }
+  // 卡片色
+  .bgColor4 {
+    background-color: #2d3339; /* 卡片/气泡颜色 */
+  }
+  // 一级文字颜色
+  .textColor1 {
+    color: #e9ecef; /* 一级文字颜色 */
+  }
+  // 二级文字颜色
+  .textColor2 {
+    color: #adb5bd; /* 二级文字颜色 */
+  }
+}
+
+// 浅色模式
+.light {
+  // 背景色1
+  .bgColor3 {
+    background-color: #f5f7f9; /* 深色模式背景色 */
+  }
+  // 卡片色
+  .bgColor4 {
+    background-color: #ffffff; /* 卡片/气泡颜色 */
+  }
+  // 一级文字颜色
+  .textColor1 {
+    color: #2d3436; /* 一级文字颜色 */
+  }
+  // 二级文字颜色
+  .textColor2 {
+    color: #636e72; /* 二级文字颜色 */
+  }
+}
+//     ‌主色调
+.bgColor1 {
+  background-color: #2a5caa; /* 浅色模式背景色 */
+  color: #edf2f7; /* 一级文字颜色 */
+  border-color: #2456a8; /* 边框颜色 */
+}
+.hoverColor {
+  background-color: #6cace4; /* 悬浮效果颜色 */
+  color: #2d3436; /* 二级文字颜色 */
+}
+//     ‌强调色‌
+.bgColor2 {
+  background-color: #ff6b6b;
+}
+// 消息状态
+.sended {
+  color: #a0aec0; /* 已发送颜色 */
+}
+.delivered {
+  color: #48bb78; /* 已送达颜色 */
+}
+.read {
+  color: #3182ce; /* 已读颜色 */
+}
+// 用户在线状态
+.online {
+  color: #48bb78; /* 在线颜色 */
+}
+.away {
+  color: #ecc94b; /* 离开颜色 */
+}
+.dnd {
+  color: #f56565; /* 勿扰颜色 */
+}
+// 系统反馈
+.success {
+  color: #68d391; /* 成功通知颜色 */
+}
+.error {
+  color: #fc8181; /* 错误提示颜色 */
+}
+
+// 声明一个变量，表示当前的主题模式
+@theme: 'dark'; // 可选值为 'dark' 或 'light'
+// 根据当前主题模式，选择相应的颜色变量
+@bgColor1: if(@theme = 'dark', #1a1e24, #f5f7f9); // 背景色1
+@bgColor2: if(@theme = 'dark', #2d3339, #ffffff); // 背景色2
+@bgColor3: if(@theme = 'dark', #2a5caa, #2a5caa); // 主色调
+@bgColor4: if(@theme = 'dark', #e9ecef, #636e72); // 一级文字颜色
+@bgColor5: if(@theme = 'dark', #adb5bd, #2d3436); // 二级文字颜色
+@bgColor6: if(@theme = 'dark', #ff6b6b, #ff6b6b); // 强调色
+@bgColor7: if(@theme = 'dark', #6cace4, #6cace4); // 悬浮效果颜色
+@bgColor8: if(@theme = 'dark', #a0aec0, #a0aec0); // 已发送颜色
+@bgColor9: if(@theme = 'dark', #48bb78, #48bb78); // 已送达颜色
+@bgColor10: if(@theme = 'dark', #3182ce, #3182ce); // 已读颜色
+@bgColor11: if(@theme = 'dark', #ecc94b, #ecc94b); // 离开颜色
+@bgColor12: if(@theme = 'dark', #f56565, #f56565); // 勿扰颜色
+@bgColor13: if(@theme = 'dark', #68d391, #68d391); // 成功通知颜色
+@bgColor14: if(@theme = 'dark', #fc8181, #fc8181); // 错误提示颜色
+@bgColor15: if(@theme = 'dark', #48bb78, #48bb78); // 在线颜色
+@bgColor16: if(@theme = 'dark', #444, #ccc); // 边框颜色

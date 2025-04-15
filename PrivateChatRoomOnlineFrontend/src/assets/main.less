@@ -1,0 +1,79 @@
+@import './style/mixin.less';
+@import './base.css';
+
+#app {
+  /* max-width: 1280px; */
+  width: 100%;
+  margin: 0 auto;
+  padding: 0;
+  font-weight: normal;
+}
+
+a,
+.green {
+  text-decoration: none;
+  color: hsla(160, 100%, 37%, 1);
+  transition: 0.4s;
+  padding: 3px;
+}
+
+@media (hover: hover) {
+  a:hover {
+    background-color: hsla(160, 100%, 37%, 0.2);
+  }
+}
+
+@media (min-width: 1024px) {
+  /* body {
+    display: flex;
+    place-items: center;
+  } */
+
+  #app {
+    /* display: grid; */
+    height: 100vh;
+    /* grid-template-columns: 1fr 1fr; */
+    padding: 0;
+    background-color: @bgColor1;
+  }
+}
+// 重写滚动条样式
+/* 滚动条轨道 */
+::-webkit-scrollbar-track {
+  background: @bgColor2; /* 轨道背景色 ‌:ml-citation{ref="2,7" data="citationList"} */
+  border-radius: 4px; /* 圆角效果 ‌:ml-citation{ref="2" data="citationList"} */
+}
+
+/* 滚动条滑块 */
+::-webkit-scrollbar-thumb {
+  background: @bgColor1; /* 滑块颜色 ‌:ml-citation{ref="2" data="citationList"} */
+  border-radius: 4px; /* 圆角滑块 ‌:ml-citation{ref="7" data="citationList"} */
+  border: 2px solid transparent; /* 透明边框实现内缩效果 ‌:ml-citation{ref="7" data="citationList"} */
+}
+
+/* 整体滚动条宽度 */
+::-webkit-scrollbar {
+  width: 8px; /* 垂直滚动条宽度 ‌:ml-citation{ref="7" data="citationList"} */
+  height: 8px; /* 水平滚动条高度 ‌:ml-citation{ref="7" data="citationList"} */
+}
+
+.scroll-container {
+  scrollbar-color: @bgColor1 @bgColor2; /* 滑块色 轨道色 ‌:ml-citation{ref="4" data="citationList"} */
+  scrollbar-width: thin; /* 可选值：auto|thin|none ‌:ml-citation{ref="4" data="citationList"} */
+}
+.scroll-container::-webkit-scrollbar-thumb {
+  background: @bgColor1;
+}
+
+/* 新版浏览器覆盖 */
+@supports (scrollbar-width: auto) {
+  .scroll-container {
+    scrollbar-color: @bgColor1 @bgColor2;
+    scrollbar-width: thin;
+  }
+  /* 禁用旧版样式覆盖 */
+  .scroll-container::-webkit-scrollbar {
+    display: none;
+  }
+  // :ml-citation { ref= '4' data= 'citationList'; }
+}
