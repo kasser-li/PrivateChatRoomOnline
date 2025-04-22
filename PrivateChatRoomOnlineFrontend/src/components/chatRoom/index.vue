@@ -1,11 +1,7 @@
 <template>
   <div class="chatRoom-container">
     <div class="chat">
-      <!-- <p>聊天室ID: {{ chatRoomId }}</p>
-            <p>聊天室ID: {{ roomInfo.id }}</p>
-            <p>聊天室name: {{ roomInfo.roomName }}</p>
-            <p>聊天室成员: {{ filtersNames }}</p> -->
-      <chatRoom :roomInfo="roomInfo"></chatRoom>
+      <chatRoom :roomInfo="roomInfo" @exitRoom="exitRoom"></chatRoom>
     </div>
 
     <div class="merberList">
@@ -55,6 +51,12 @@ const filtersNames = computed(() => {
     return ''
   }
 })
+// 退出房间
+const exitRoom = () => {
+  c
+  console.log('退出房间')
+}
+
 watch(
   () => route.params.chatRoomId,
   (newVal) => {

@@ -4,6 +4,9 @@ import logger from "../logger";
 // 路由导入
 import authRoute from './api/authRouter';
 import userRoute from './api/userRouter';
+import roomRouter from "./api/roomRouter";
+import messageRouter from "./api/messageRouter";
+
 interface RouterConf {
   path: string;
   router: Router;
@@ -18,6 +21,14 @@ const routerGroup: RouterConf[] = [
   {
     path: "/auth",
     router: authRoute,
+  },
+  {
+    path: "/room",
+    router: roomRouter,
+  },
+  {
+    path: "/message",
+    router: messageRouter,
   },
 ];
 

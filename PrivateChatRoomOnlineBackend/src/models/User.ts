@@ -40,7 +40,7 @@ export interface IUser extends IBaseDocument {
   lastLoginErrorOs: String, /* 上次登录错误操作系统 */
   lastLoginErrorStatus: String, /* 上次登录错误状态 */
   lastLoginErrorCountResetTime: Date, /* 上次登录错误次数重置时间 */
-  comparePassword: (candidatePassword: string) => Promise<boolean>; // 比较密码的方法
+  // comparePassword: (candidatePassword: string) => Promise<boolean>; // 比较密码的方法
   generateToken: () => string; // 生成token的方法
   passwordResetToken?: string; // 密码重置令牌
   passwordResetTokenExpires?: number; // 密码重置令牌过期时间
@@ -50,7 +50,7 @@ export interface IUser extends IBaseDocument {
 const userSchemaDefinition: mongoose.SchemaDefinition = {
   username: { type: String, required: true, unique: true }, // 用户名
   password: { type: String, required: true }, // 密码
-  email: { type: String, unique: true }, // 邮箱
+  email: { type: String, unique: true, sparse: true }, // 邮箱可为空 但是不能重复
   name: { type: String }, // 姓名
   phone: { type: String }, // 手机号
   idCard: { type: String }, // 身份证号
@@ -85,18 +85,25 @@ const userSchemaDefinition: mongoose.SchemaDefinition = {
   lastLoginErrorOs: { type: String }, /* 上次登录错误操作系统 */
   passwordResetToken: { type: String }, /* 密码重置令牌 */
   passwordResetTokenExpires: { type: Number }, /* 密码重置令牌过期时间 */
-
 }
-
+// const userSchema = new Schema(userSchemaDefinition);
+// userSchema.methods.comparePassword = async function (candidatePassword: string): Promise<boolean> {
+//   return bcrypt.compare(candidatePassword, this.password);
+// };
 class UserModel extends BaseModel<IUser> {
   constructor() {
-    super('userModel', userSchemaDefinition);
+    super('users', userSchemaDefinition);
     // super('userModel', userSchemaDefinition, { timestamps: true });
     // 比较密码方法
-    this.getModel().schema.methods.comparePassword = 
-    async function (candidatePassword: string):Promise<boolean> {
-      return bcrypt.compare(candidatePassword, this.password);
-    }
+    // const model = this.getModel();
+    // // this.getModel().schema.methods.comparePassword = 
+    // model.schema.methods.comparePassword = 
+    // async function (candidatePassword: string):Promise<boolean> {
+    //   return bcrypt.compare(candidatePassword, this.password);
+    // }
+    // this.comparePassword =  async function (candidatePassword: string):Promise<boolean> {
+    //     return bcrypt.compare(candidatePassword, this.password);
+    //   }
   }
   // 单独比较密码方法
   comparePassword(candidatePassword: string, hashPass: string) {
@@ -104,7 +111,7 @@ class UserModel extends BaseModel<IUser> {
   }
   // 用户注册
   async register(userData: IUser): Promise<IUser> {
-    // 生成盐
+    // 生成
     const salt = await bcrypt.genSalt(10);
     // 加密密码
     userData.password = await bcrypt.hash(userData.password, salt);
@@ -201,6 +208,7 @@ class UserModel extends BaseModel<IUser> {
   async resetPasswordByUser(userId: string, oldPassword: string, newPassword: string): Promise<void> {
     const user = await this.getModel().findById(userId).exec();
     if (!user) throw new Error('用户不存在');
+    // const isMatch = await this.comparePassword(oldPassword, user.password);
     const isMatch = await this.comparePassword(oldPassword, user.password);
     if (isMatch) {
       const salt = await bcrypt.genSalt(10);
@@ -211,4 +219,7 @@ class UserModel extends BaseModel<IUser> {
     }
   }
 }
-export default new UserModel();
+// const UserModel = mongoose.model<IUser>('User', userSchema);
+// export default UserModel
+
+export default new UserModel()

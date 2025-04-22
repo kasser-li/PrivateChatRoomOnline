@@ -38,13 +38,16 @@ const signIn = async () => {
 }
 const loginInto = (res: any) => {
   console.log(res)
-  if (res.code === 200 && res.success === true) {
-    const userInfo = res.data
+  if (res.code === 200) {
+    const { userInfo, token } = res.data
+    console.log({ userInfo, token })
     userStore.setUserInfo({
-      token: userInfo.data.token,
-      name: userInfo.data.name,
-      id: userInfo.data.id,
+      token: token,
+      userInfo: userInfo,
     })
+    let t = userStore.getToken
+    console.log('token 缓存', t)
+
     // 跳转到首页
     router.push({ path: '/' })
   }

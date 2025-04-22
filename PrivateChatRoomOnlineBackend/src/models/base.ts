@@ -9,6 +9,7 @@ import mongoose, {
 //   基础模型类，用于定义基础字段和逻辑
 
   export interface IBaseDocument extends Document {
+    // id: mongoose.Types.ObjectId;
     deletedAt?: Date;
     createdAt: Date;
     updatedAt: Date;
@@ -28,6 +29,10 @@ import mongoose, {
   }
 //   基础模型字段定义
   export const baseSchemaDict = {
+    // id: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   auto: true,
+    // },
     createdAt: {
       type: Date,
       default: Date.now,
@@ -54,7 +59,7 @@ import mongoose, {
   };
   
   const baseSchema = new Schema<IBaseDocument>(baseSchemaDict);
-  
+
   baseSchema.pre<IBaseDocument>("save", function (next) {
     this.updatedAt = new Date();
     this.version += 1;
@@ -76,7 +81,21 @@ import mongoose, {
         },
         options
       );
-  
+      schema.set('toJSON',{
+        transform: function (doc, ret) {
+          ret.id = ret._id;
+          delete ret.__v;
+          delete ret.status;
+          delete ret.isDeleted;
+          delete ret.updateTime;
+          delete ret._id;
+          delete ret.createdAt;
+          delete ret.updatedAt;
+          delete ret.deletedAt;
+          delete ret.version;
+          return ret;
+        },
+      })
       this.model = mongoose.model<T>(modelName, schema);
     }
   
@@ -121,6 +140,7 @@ import mongoose, {
     }
   
     async find(query: ExtendedFilterQuery<T>, options: QueryOptions = {}) {
+      
       query.deletedAt = { $exists: false };
       return await this.model.find(query, options).exec();
     }

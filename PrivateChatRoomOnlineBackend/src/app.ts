@@ -9,7 +9,7 @@ import logger from "./logger";
 import { connectDB } from './config/db';
 // 装饰器
 import 'reflect-metadata'
-// import interceptRouter from './routes/intercept'
+
 
 import initRoutes from './routes/index'
 // import usersRouter from './routes/usersRouter';
@@ -67,12 +67,11 @@ app.use(function (req, res, next) {
 initRoutes(app)
 app.use(errorHandler);
 // 统一处理错误
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-  console.error(err.stack);
-  res.status(500).send('Something broke!');
-});
+// app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+//   console.error(err.stack);
+//   res.status(500).send('Something broke!');
+// });
 
-// app.use(interceptRouter)
 const PORT = process.env.PORT || 8099;
 
 try {

@@ -3,7 +3,17 @@ import { join } from 'path';
 import { parse } from 'yaml';
 import logger from '../logger';
 import { ConnectOptions } from 'mongoose';
+import { Options } from "express-rate-limit";
+import { RedisOptions } from "ioredis";
 
+interface RateLimitOptions extends Options {
+  customHeader?: string; // 自定义头部字段
+}
+
+interface DatabaseConfig {
+ url: string;
+options: ConnectOptions
+}
 // 定义基础配置接口
 interface Config {
   APP: {
@@ -11,8 +21,11 @@ interface Config {
     port: number;
     host: string;
   };
+  jwt_secret: string;
   cors: CorsConfig;
-  database: ConnectOptions;
+  rateLimit: RateLimitOptions;
+  database: DatabaseConfig;
+  redis: RedisOptions;
 }
 
 // 跨域配置接口

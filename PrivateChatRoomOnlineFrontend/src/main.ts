@@ -1,6 +1,7 @@
 import './assets/main.less'
 import '@/assets/style/mixin.less'
 import 'element-plus/dist/index.css'
+// @import 'tailwindcss';
 
 import { createApp } from 'vue'
 // import { createPinia } from 'pinia'

@@ -1,7 +1,10 @@
 import axios from 'axios'
 import { getToken } from '@/utils/auth.ts'
+// 引入element-plus的message组件
+import { ElMessage } from 'element-plus'
+
 // 获取token
-const token = getToken()
+
 const request = axios.create({
   baseURL: '/api',
   timeout: 10000,
@@ -17,7 +20,7 @@ const request = axios.create({
 
 // request 拦截器
 request.interceptors.request.use(
-  (config) => {
+  async (config) => {
     // 在发送请求之前做些什么
     // 这里可以添加 token 等请求头
     // console.log('拦截器：', config)
@@ -27,10 +30,14 @@ request.interceptors.request.use(
     if (config.method === 'get') {
       config.params = config.data
     }
-
+    // 添加token
+    const token = await getToken()
     if (token) {
-      config.headers['token'] = token
+      // config.headers['token'] = token
+      // 添加权限
+      config.headers['Authorization'] = 'Bearer ' + token
     }
+    // console.log('拦截器：', config)
     return config
   },
   (error) => {
@@ -42,7 +49,19 @@ request.interceptors.request.use(
 request.interceptors.response.use(
   (response) => {
     // 对响应数据做点什么
-    return response.data
+    if (response.status !== 200) {
+      ElMessage({
+        message: response.data.message || 'server error',
+        type: 'error',
+        duration: 2000,
+      })
+    }
+    console.log('返回拦截器：', response)
+    if (response.status === 200 || response.data.code === 200) {
+      return (response.data = response.data.data)
+    } else {
+      return response.data
+    }
   },
   (error) => {
     // 对响应错误做点什么

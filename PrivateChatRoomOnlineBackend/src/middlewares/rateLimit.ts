@@ -1,11 +1,10 @@
 // 请求限流
 import rateLimit, { Options } from "express-rate-limit";
 import { Express, Request } from "express";
+
 import { getConfig } from "../config/config";
 
-interface RateLimitOptions extends Options {
-  customHeader?: string; // 自定义头部字段
-}
+
 
 export const rateLimitMiddleware = (app: Express) => {
   const { rateLimit: rateLimitConfig } = getConfig();

@@ -1,6 +1,6 @@
 # PrivateChatRoom
-个人聊天室
 
+个人聊天室
 
     技术选型
     前端：Vue.js
@@ -17,4 +17,3 @@
     1. 搭建基础前端界面
     2. 嵌入pinia 管理数据  https://pinia.web3doc.top/  详情见stores文件夹
     3. 嵌入axios 调用接口
-

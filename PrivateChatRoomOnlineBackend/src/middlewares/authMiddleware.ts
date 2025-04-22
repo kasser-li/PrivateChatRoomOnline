@@ -16,9 +16,13 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction) 
     req.user = { id: '', username: '', role: 'guest' }; // 设置为游客身份
     return next();
   }
-
   try {
-    const decoded = jwt.verify(token, 'your_jwt_secret') as AuthUser;
+    const SECRETJWT = process.env.SECRETJWT;
+    if (!SECRETJWT) {
+      // 如果 SECRETJWT 未定义，抛出错误或返回响应
+      return next(new Error('SECRETJWT is not defined in environment variables'));
+    }
+    const decoded = jwt.verify(token, SECRETJWT) as AuthUser;    
     req.user = decoded;
     next();
   } catch (error) {

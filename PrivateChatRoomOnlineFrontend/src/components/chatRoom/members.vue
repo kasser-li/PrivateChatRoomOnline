@@ -30,10 +30,10 @@ const getChatRoomList = async () => {
   let res = await chatRoomList()
   console.log(res)
   if (res.code === 200) {
-    if (Array.isArray(res.data.list)) {
-      chatList.value = res.data.list as chatRoomParams[]
+    if (Array.isArray(res.data)) {
+      chatList.value = res.data as chatRoomParams[]
     } else {
-      console.error('Invalid data format:', res.data.list)
+      console.error('Invalid data format:', res.data)
     }
   }
 }

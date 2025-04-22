@@ -8,7 +8,6 @@ const CACHE_TTL = 3600; // 缓存时间，单位为秒
 
 // 获取用户信息
 export const getUserInfo = async (req: Request, res: Response) => {
-  console.log("getUserInfo", req.query.id);
   
   const cacheKey = `user:${req.user!.id}`;
   let user = await getCache(cacheKey);

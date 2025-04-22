@@ -3,6 +3,7 @@
     class="chat-item"
     :title="chatRoomInfo.roomName"
     @click="$emit('checkIntoRoom', chatRoomInfo)"
+    :data-target="target"
   >
     <div class="avatar">
       <el-avatar :shape="shapeType" v-if="chatRoomInfo.avatar" :src="chatRoomInfo.avatar" />
@@ -37,9 +38,17 @@ const props = defineProps({
       return false
     },
   },
+  target: {
+    type: String,
+    default() {
+      return ''
+    },
+  },
 })
 // 计算属性，用于获取 chatRoomInfo.name 的第一个字符
 const firstChar = computed(() => {
+  console.log('props.chatRoomInfo.name', props.chatRoomInfo.username)
+
   if (props.chatRoomInfo.roomName) {
     return props.chatRoomInfo.roomName.charAt(0)
   } else if (props.chatRoomInfo.name) {

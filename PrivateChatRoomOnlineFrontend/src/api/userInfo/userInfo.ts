@@ -1,8 +1,9 @@
 // 账号信息
 export interface AccountInfo {
+  id: string // 用户ID
   username: string // 用户名
   password: string // 密码
-  email: string // 邮箱
+  email?: string // 邮箱
   name?: string // 姓名
   phone?: string // 手机号
   idCard?: string // 身份证号
@@ -44,7 +45,7 @@ export interface AccountInfo {
 // 用户相关类型
 export interface UserInfo {
   userInfo: AccountInfo
-  toekn: string
+  token: string
 }
 
 export interface LoginParams {
