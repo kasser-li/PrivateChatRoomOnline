@@ -29,7 +29,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { nextTick, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import message from './message.vue'
 // 引入pinia
@@ -40,13 +40,14 @@ import { onMounted } from 'vue'
 import type { messageParams } from '@/api/message/types.ts'
 import { watch } from 'vue'
 import { exitChatRoom } from '@/api/chatRoom'
-const userStore = userInfoStore(pinia).userInfo
+const userStore = userInfoStore()
 const userInfo = userStore.userInfo
 const roomId = ref('')
 
-let chatMessages = ref(Array<messageParams>())
+
+const chatMessages = ref<messageParams[]>([])
 let newMessage = ref('')
-console.log('chatMessages', chatMessages.value)
+// console.log('chatMessages', chatMessages.value)
 
 // 发送消息
 const send = () => {
@@ -56,30 +57,31 @@ const send = () => {
     message: newMessage.value,
   }
   sendMessage(msg).then((res) => {
-    console.log('消息发送成功', res.data)
+    // console.log('消息发送成功', res.data)
     let newMsg: messageParams = res.data as unknown as messageParams
+    // 将新消息添加到消息列表中
     chatMessages.value.push(newMsg)
+    // 清空输入框
+    newMessage.value = ''
+    // 滚动到底部
+    // 使用 nextTick 确保 DOM 更新完成后再滚动
+    nextTick(() => {
+      const chatHistory = document.querySelector('.chat-history') as HTMLElement
+      chatHistory.scrollTop = chatHistory.scrollHeight
+    })
   })
 
-  // })
-
-  //
-  // if (newMessage.value.trim()) {
-  //   chatMessages.value.push({
-  //     id: userInfo.id,
-  //     avatar: '',
-  //     name: userInfo.userInfo.userInfo.name,
-  //     text: newMessage.value,
-  //     timestamp: new Date().toLocaleTimeString(),
-  //   })
-  // newMessage.value = ''
-  // }
 }
 // 获取消息列表
 const getMessageList = () => {
   getMessages(roomId.value).then((res) => {
     console.log(res)
-    chatMessages.value = res.data as unknown as messageParams[]
+    if (Array.isArray(res.data)) {
+      chatMessages.value = res.data as messageParams[]
+    } else {
+      console.error('getMessages 返回的数据不是数组:', res.data)
+      chatMessages.value = [] // 确保 chatMessages.value 始终是数组
+    }
     console.log('chatMessages', chatMessages.value)
   })
 }
@@ -88,7 +90,7 @@ import router from '@/router'
 // const emits = defineEmits(['exitRoom'])
 const exitRoom = () => {
   exitChatRoom(roomId.value).then((res) => {
-    console.log('退出聊天室成功', res)
+    // console.log('退出聊天室成功', res)
     if (res.code == 200) {
       // 调用父组件方法，刷新房间列表
       // emits('exitRoom', res.data?.id)

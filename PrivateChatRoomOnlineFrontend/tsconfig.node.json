@@ -8,7 +8,8 @@
     "playwright.config.*",
     "eslint.config.*",
     // 添加全局类型 type
-    "src/api/**/*.d.ts"
+    "src/api/**/*.d.ts",
+    "types/*.d.ts"
   ],
   "compilerOptions": {
     "noEmit": true,

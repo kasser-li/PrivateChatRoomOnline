@@ -7,6 +7,6 @@ export interface messageParams {
   ctrateTime: Date /* 发送时间 */
   message: String /* 消息内容 */
   isDelete: Boolean /* 消息是否删除 */
-  user: { type: AccountInfo } /* 消息发送人用户信息 */
+  user?: { type: AccountInfo } /* 消息发送人用户信息 */
   blockUser: Array<string> /* 屏蔽接收人 */
 }

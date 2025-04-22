@@ -23,7 +23,7 @@ request.interceptors.request.use(
   async (config) => {
     // 在发送请求之前做些什么
     // 这里可以添加 token 等请求头
-    // console.log('拦截器：', config)
+    // // console.log('拦截器：', config)
     if (config.method === 'post') {
       config.data = JSON.stringify(config.data)
     }
@@ -37,7 +37,7 @@ request.interceptors.request.use(
       // 添加权限
       config.headers['Authorization'] = 'Bearer ' + token
     }
-    // console.log('拦截器：', config)
+    // // console.log('拦截器：', config)
     return config
   },
   (error) => {
@@ -56,7 +56,7 @@ request.interceptors.response.use(
         duration: 2000,
       })
     }
-    console.log('返回拦截器：', response)
+    // console.log('返回拦截器：', response)
     if (response.status === 200 || response.data.code === 200) {
       return (response.data = response.data.data)
     } else {

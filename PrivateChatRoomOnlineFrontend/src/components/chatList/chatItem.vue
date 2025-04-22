@@ -47,7 +47,7 @@ const props = defineProps({
 })
 // 计算属性，用于获取 chatRoomInfo.name 的第一个字符
 const firstChar = computed(() => {
-  console.log('props.chatRoomInfo.name', props.chatRoomInfo.username)
+  // console.log('props.chatRoomInfo.name', props.chatRoomInfo.username)
 
   if (props.chatRoomInfo.roomName) {
     return props.chatRoomInfo.roomName.charAt(0)

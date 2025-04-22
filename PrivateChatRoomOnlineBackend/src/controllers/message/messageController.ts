@@ -61,7 +61,7 @@ export const getMessageList = async (req: Request, res: Response, next: NextFunc
 
   // 获取该房间的所有消息，并返回给客户端。
   const messages: IMessage[] = await MessageModel.getMessageList(id); 
-  successHandle({ ...messages }, res, next);
+  successHandle(messages, res, next);
 }
 // 撤回消息
 export const deleteMessage = async (req: Request, res: Response, next: NextFunction) => {

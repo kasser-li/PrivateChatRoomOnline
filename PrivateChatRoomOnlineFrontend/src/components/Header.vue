@@ -31,10 +31,10 @@ const userStore = userInfoStore()
 const userInfo = ref({} as Partial<AccountInfo>)
 
 const handleSelect = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath)
+  // console.log(key, keyPath)
 }
 const getUserInfo = () => {
-  console.log('获取用户信息', userStore.getUserInfo)
+  // console.log('获取用户信息', userStore.getUserInfo)
   if (userStore.getUserInfo) {
     userInfo.value = userStore.getUserInfo
   }
@@ -42,7 +42,7 @@ const getUserInfo = () => {
 const loginOut = () => {
   userStore.loginOut
   userInfo.value = {}
-  console.log('退出登录')
+  // console.log('退出登录')
   // 跳转到登录页
 
   router.push({ path: '/login' })
@@ -53,7 +53,7 @@ const getToken = () => {
 }
 const getUserName = () => {
   let t = userStore.getUserName
-  console.log('ttttttoken', t)
+  console.log('nnnnname', t)
 }
 
 const getRoomList = async () => {

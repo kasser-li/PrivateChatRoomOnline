@@ -7,7 +7,7 @@
         <!-- 加入房间 -->
         <el-button type="primary" size="small" @click="updateState(2, 2)">加入房间</el-button>
       </div>
-      <div v-else>
+      <div style="width: 100%;" v-else >
         <el-form v-if="joinOrCreate == 1" :model="form" label-width="auto" style="max-width: 600px">
           <el-form-item label="房间名字">
             <el-input v-model="form.name" />
@@ -76,10 +76,10 @@ const confrim = async () => {
   // nextTick(() => {
   //   dialog.value = false
   // })
-  console.log('调用创建房间接口')
+  // console.log('调用创建房间接口')
 
   let res = await createChatRoom(form.value)
-  console.log(res)
+  // console.log(res)
   if (res.code === 200) {
     dialog.value = false
     // 回调函数
@@ -100,7 +100,7 @@ const roomInfo = ref('')
 let chatList = ref<chatRoomParams[]>([])
 const searchChatRoomList = async (keyword: string) => {
   let res = await searchChatRoom(keyword)
-  console.log(res)
+  // console.log(res)
   if (res.code === 200 && res.data !== null && res.data !== undefined) {
     if (Array.isArray(res.data)) {
       chatList.value = res.data as chatRoomParams[]
@@ -126,7 +126,7 @@ watch(
 // 加入房间
 const joinRoom = async (id: string) => {
   let res = await joinChatRoom(id)
-  console.log(res)
+  // console.log(res)
   // 回调函数
   if (res.code === 200) {
     dialog.value = false

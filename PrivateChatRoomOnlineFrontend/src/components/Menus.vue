@@ -66,10 +66,10 @@ const menusState = reactive({
     isCollapse: false,
 })
 const handleOpen = (key: string, keyPath: string[]) => {
-    console.log(key, keyPath)
+    // console.log(key, keyPath)
 }
 const handleClose = (key: string, keyPath: string[]) => {
-    console.log(key, keyPath)
+    // console.log(key, keyPath)
 }
 /**
  * 切换菜单的展开和折叠状态

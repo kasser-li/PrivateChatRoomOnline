@@ -4,8 +4,14 @@ import 'element-plus/dist/index.css'
 // @import 'tailwindcss';
 
 import { createApp } from 'vue'
+
+
+import pinia from '@/stores/index.ts'
 // import { createPinia } from 'pinia'
-import pinia from '@/stores'
+// import piniaPluginPersistedstate from 'pinia-plugin-persistedstate' //引入持久化插件
+// const pinia = createPinia()
+// pinia.use(piniaPluginPersistedstate) //使用持久化插件
+
 import ElementPlus from 'element-plus'
 
 import App from '@/App.vue'
@@ -16,7 +22,7 @@ import router from './router'
 // 数据集管理
 
 const app = createApp(App)
-// const pinia = createPinia()
+
 app.use(pinia)
 app.use(router)
 app.use(ElementPlus)

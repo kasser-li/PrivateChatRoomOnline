@@ -25,7 +25,7 @@ let roomInfo = ref({})
 // 获取房间信息
 const getRoomInfo = async (chatRoomId: string) => {
   let res = await getChatRoomInfo(chatRoomId)
-  console.log(res)
+  // console.log(res)
   if (res.code === 200) {
     try {
       //  将 res.data.members 扩展到10个
@@ -42,7 +42,7 @@ const getRoomInfo = async (chatRoomId: string) => {
 }
 const filtersNames = computed(() => {
   let members = roomInfo.value.members
-  console.log(members)
+  // console.log(members)
 
   if (Array.isArray(members)) {
     return members.map((item) => item.name).join(',')
@@ -54,7 +54,7 @@ const filtersNames = computed(() => {
 // 退出房间
 const exitRoom = () => {
   c
-  console.log('退出房间')
+  // console.log('退出房间')
 }
 
 watch(

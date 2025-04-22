@@ -1,7 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import { userInfoStore } from '@/stores/userInfo.ts'
-const userStore = userInfoStore()
+import { getToken } from '@/utils/auth'
+// import { createPinia } from 'pinia'
+// import { userInfoStore } from '@/stores/userInfo.ts'
+
+// const pinia = createPinia()
+// const userStore = userInfoStore(pinia)
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -61,13 +65,15 @@ const router = createRouter({
 })
 // 路由守卫
 
-router.beforeEach((to, from, next) => {
+router.beforeEach( async (to, from, next) => {
   if (to.meta.requireAuth === false) {
     next()
   } else {
-    let token = userStore.getToken
+    let token =  await getToken()
+    console.log('token gggggg', token);
+    
     if (!token) {
-      console.log('未登录', token)
+      // console.log('未登录', token)
       if (!to.query || !to.params) {
         next({
           path: '/login',

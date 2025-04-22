@@ -35,13 +35,19 @@ import chatItem from './chatItem.vue'
 import { chatRoomList } from '@/api/chatRoom/index.ts'
 import type { chatRoomParams } from '@/api/chatRoom/types.ts'
 import { getToken } from '@/utils/auth.ts'
+// 引入websocket
+// import { useWebsocket } from '@/utils/websocket.ts'
+// let u = window.global_config.wsURL
+let u = (window as any).global_config.wsURL
+console.log('uuuuuuu',u)
+
 
 const token = getToken()
 let chatList = ref<chatRoomParams[]>([])
 const roomStore = roomListStore()
 const getChatRoomList = async () => {
   let res = await chatRoomList()
-  console.log(res)
+  // console.log(res)
   if (res.code === 200 && res.data !== null && res.data !== undefined) {
     if (Array.isArray(res.data)) {
       chatList.value = res.data as chatRoomParams[]
@@ -54,9 +60,9 @@ const getChatRoomList = async () => {
 watch(
   () => token,
   (newToken) => {
-    console.log('token变化了', newToken)
+    // console.log('token变化了', newToken)
     if (!newToken) {
-      console.log('token不存在')
+      // console.log('token不存在')
       return
     }
     getChatRoomList()
@@ -65,7 +71,7 @@ watch(
 )
 
 const checkIntoRoom = (chatRoomInfo: chatRoomParams) => {
-  console.log(chatRoomInfo)
+  // console.log(chatRoomInfo)
   // 携带id 跳转
   // router.push({ path: 'chatRoom', query: { chatRoomId: chatRoomInfo.id } })
   router.push({ path: '/chatRoom/' + chatRoomInfo.id })
@@ -86,7 +92,7 @@ const addRoom = () => {
   }
 }
 const getNewRoomList = (data: chatRoomParams) => {
-  console.log('父组件收到子组件的数据:', data)
+  // console.log('父组件收到子组件的数据:', data)
   chatList.value.push(data)
   roomStore.addRoom(chatList.value)
 }
@@ -100,7 +106,7 @@ const folderList = [
   { id: 3, text: '退出房间' },
 ]
 const handleChatRoom = (item: any) => {
-  console.log(item)
+  // console.log(item)
 }
 </script>
 <style lang="less">

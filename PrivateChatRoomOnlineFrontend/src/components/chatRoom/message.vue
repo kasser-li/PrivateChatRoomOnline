@@ -26,7 +26,7 @@ const props = defineProps({
     default: false,
   },
 })
-console.log('props.message', props.message)
+// console.log('props.message', props.message)
 // let msg = {
 //   userId: '680606abf4dd72dad27866cc',
 //   roomId: '68060a4c6f0ad5c635105f07',

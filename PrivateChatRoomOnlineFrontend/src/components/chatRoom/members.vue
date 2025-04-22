@@ -28,7 +28,7 @@ const props = defineProps({
 let chatList = ref<chatRoomParams[]>([])
 const getChatRoomList = async () => {
   let res = await chatRoomList()
-  console.log(res)
+  // console.log(res)
   if (res.code === 200) {
     if (Array.isArray(res.data)) {
       chatList.value = res.data as chatRoomParams[]
@@ -40,7 +40,7 @@ const getChatRoomList = async () => {
 getChatRoomList()
 
 const checkIntoRoom = (chatRoomInfo: chatRoomParams) => {
-  console.log(chatRoomInfo.id)
+  // console.log(chatRoomInfo.id)
   // 携带id 跳转
   // router.push({ path: 'chatRoom', query: { chatRoomId: chatRoomInfo.id } })
   router.push({ path: '/chatRoom/' + chatRoomInfo.id })
