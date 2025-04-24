@@ -6,7 +6,9 @@ import MessageModel, { IMessage } from "../../models/Message";
 import RoomModel, { IRoom } from "../../models/Room";
 import bcrypt from 'bcryptjs';
 import { getConfig } from "../../config/config";
-
+// 引入广播方法
+import { newsBroadcast } from './../../controllers/ws/messageController'
+// 
 //  // 发送新消息
 //  async sendMessage(messageData: Partial<IMessage>): Promise<IMessage> {
 //   const message = new (this.getModel())(messageData);
@@ -39,6 +41,12 @@ export const sendMessage = async (req: Request, res: Response, next: NextFunctio
   message.userId = req.user?.id!; // 确保 userId 是从请求中获取的当前用户ID
   // 将消息添加到数据库中，并返回该消息的ID给客户端。
   const messageId = await MessageModel.sendMessage(message); 
+  // 当有新消息时 触发ws
+  newsBroadcast('newsMessage', {
+    roomId,
+    userId,
+    message:messageId
+  })
   successHandle(messageId, res, next);
 }
 // 获取对应房间的消息

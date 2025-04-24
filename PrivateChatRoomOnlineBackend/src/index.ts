@@ -17,13 +17,3 @@ dotenv.config();
     console.error('Error starting the server:', error);
   }
 })();
-// (async () => {
-//   try {
-//     await connectDB();
-//     app.listen(process.env.PORT || 8099, () => {
-//       console.log(`Server running on http://localhost:${process.env.PORT || 8099}`);
-//     });
-//   } catch (error) {
-//     console.error('Error starting the server:', error);
-//   }
-// })();

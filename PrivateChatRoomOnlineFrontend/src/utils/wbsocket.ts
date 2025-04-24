@@ -1,4 +1,5 @@
 import { onUnmounted } from 'vue'
+import { getToken } from '@/utils/auth'
 
 // 基础配置
 interface SocketOptions {
@@ -13,6 +14,7 @@ interface SocketOptions {
 class Socket {
     url: string | null = ''
     ws: WebSocket | null = null
+    token: string | null = null
     opts: SocketOptions
     reconnectAttempts: number = 0
     listeners: {[key:string]:Function[]} = {}
@@ -31,15 +33,21 @@ class Socket {
         this.init()
     }
     // 初始化
-    init(){
+    async init(){
         if (!this.url) {
             throw new Error('WebSocket URL 未定义');
         }
-        this.ws = new WebSocket(this.url as string)
+        // 
+        this.token = await getToken()
+        if (!this.token) {
+            this.ws = new WebSocket(this.url as string)
+        }else{  
+            this.ws = new WebSocket((this.url + '?token=' + this.token) as string)
+        }        
         this.ws.onopen = this.onOpen.bind(this)
         this.ws.onmessage = this.onMessage.bind(this)
         this.ws.onerror = this.onError.bind(this)
-        this.ws.onclose = this.onClose.bind(this)
+        this.ws.onclose = this.onClose.bind(this)        
     }
     // 打开连接时触发
 
@@ -60,7 +68,7 @@ class Socket {
         this.emit('error',event)
     }
     // 重连逻辑
-    onClose(event: CloseEvent){
+    onClose(event: CloseEvent,){
         console.log('WebSocket连接关闭',event)
         this.stopHeartbeat()
         this.emit('close',event)
@@ -98,6 +106,8 @@ class Socket {
     }
     // 事件监听
     on(event: string, callback: Function) {
+        console.log('this.listeners',this.listeners);
+
         if(!this.listeners[event]) {
             this.listeners[event] = []
         }
@@ -135,7 +145,8 @@ export function useWebSocket(url: string, opts: SocketOptions = {}) {
     })
     return {
         socket,
-        send: socket.send,
+        send: socket.send, // 此方式调用时会报错， 找不到对象的this， 暂时解决办法是直接暴露socket对象
+
         on: socket.on,
         off: socket.off,
         emit: socket.emit // 此方法尽量不暴露出去，只在内部使用

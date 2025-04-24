@@ -2,12 +2,8 @@
   <div class="chat-container">
     <div class="chat-history">
       <!-- 聊天记录区域 -->
-      <div
-        v-for="(message, index) in chatMessages"
-        :key="message.id"
-        class="message"
-        :class="message.userId === userInfo?.id ? 'message-right' : 'message-left'"
-      >
+      <div v-for="(message, index) in chatMessages" :key="message.id" class="message"
+        :class="message.userId === userInfo?.id ? 'message-right' : 'message-left'">
         <message :message="message" :isSelf="message.userId == userInfo?.id"></message>
       </div>
       <div class="message-timestamp" v-if="chatMessages?.length > 0">
@@ -17,6 +13,8 @@
       <div>
         <button @click="getMessageList">获取消息列表</button>
         <button @click="exitRoom">退出聊天室</button>
+        <button @click="sendSocket">socket发送</button>
+        <button @click="closeSocket">socket关闭</button>
       </div>
     </div>
 
@@ -98,6 +96,42 @@ const exitRoom = () => {
     }
   })
 }
+import { useWebSocket } from '@/utils/wbsocket'
+let localSocket: any = null;
+const sendSocket = () => {
+  if (!localSocket) {
+    const {socket} = useWebSocket((window as any).global_config.wsURL + '/hello')  
+    localSocket = socket
+
+    localSocket.on('close', () => {
+      console.log('连接已关闭')
+    })
+    localSocket.on('open', (event: any) => {
+      // socket?.send(JSON.stringify({ type: 'ping' }))
+      console.log('连接已打开', event)
+    })
+    localSocket.on('message', (msg: any) => {
+      console.log('收到消息1111:', msg.data)
+      let data = JSON.parse(msg.data)
+      if (data.type === 'newMessage') {
+        chatMessages.value.push(data.message)  
+      }
+      // 处理接收到的消息，例如更新聊天界面等操作
+    })
+  }
+  localSocket.send(JSON.stringify({ type: 'newMessage' , data:{
+    roomId: roomId.value,
+  }}))
+}
+// 断开连接
+const closeSocket = () => {
+  // const { socket } = useWebSocket((window as any).global_config.wsURL + '/hello')
+  localSocket.on('close',()=>{
+    localSocket.send(JSON.stringify({ type: 'closeClient' }))
+  })
+  // socket.onClose()
+  console.log('连接已关闭')
+}
 
 const route = useRoute()
 // 修改房间ID
@@ -164,16 +198,20 @@ onMounted(async () => {
   text-align: center;
   color: #999;
 }
+
 .message {
   display: flex;
   justify-content: space-between;
 }
+
 .message-left {
   justify-content: flex-start;
 }
+
 .message-right {
   justify-content: flex-end;
 }
+
 .avatar {
   width: 40px;
   height: 40px;

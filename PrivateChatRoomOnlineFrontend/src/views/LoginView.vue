@@ -46,8 +46,10 @@ const loginInto = (res: any) => {
       userInfo: userInfo,
     })
     let t = userStore.getToken
-    // 跳转到首页
-    router.push({ path: '/' })
+    if(t == token){
+      // 跳转到首页
+      router.push({ path: '/' })
+    }    
   }
 }
 </script>

@@ -46,9 +46,10 @@ const props = defineProps({
 
 <style lang="less" scoped>
 .message-content {
+  width: 70%;
   display: flex;
   padding: 10px;
-  justify-content: flex-start;
+  justify-content: flex-end;
   // border: 1px solid #ccc;
   // border-radius: 5px;
   .message-news {
@@ -66,7 +67,7 @@ const props = defineProps({
   }
 }
 .self-message {
-  justify-content: flex-end;
+  // justify-content: flex-end;
 }
 .other-message {
   flex-direction: row-reverse;

@@ -37,7 +37,7 @@ request.interceptors.request.use(
       // 添加权限
       config.headers['Authorization'] = 'Bearer ' + token
     }
-    // // console.log('拦截器：', config)
+    console.log('发送拦截器：', config)
     return config
   },
   (error) => {
@@ -56,8 +56,13 @@ request.interceptors.response.use(
         duration: 2000,
       })
     }
-    // console.log('返回拦截器：', response)
+    console.log('返回拦截器：', response)
+    
+    
     if (response.status === 200 || response.data.code === 200) {
+      // let cookie = response.headers['etag']
+      // let cookie = response.headers['set-cookie']
+      // console.log('返回拦截器 cookie：', cookie)
       return (response.data = response.data.data)
     } else {
       return response.data
