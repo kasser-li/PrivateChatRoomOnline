@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 600px;">
+  <div class="loginForm">
     <el-form :model="form" label-width="auto">
       <el-form-item label="账号/手机">
         <el-input v-model="form.username" />
@@ -8,8 +8,10 @@
         <el-input v-model="form.password" />
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">登录</el-button>
+        <div class="loginFormFoot">
+          <el-button type="primary" @click="onSubmit">登录</el-button>
         <el-button type="primary" @click="signIn">注册</el-button>
+        </div>
       </el-form-item>
     </el-form>
   </div>
@@ -53,3 +55,16 @@ const loginInto = (res: any) => {
   }
 }
 </script>
+<style lang="less" scoped>
+.loginForm {
+  width: 450px;
+  margin: 0px auto;
+  padding-top: 180px;
+  .loginFormFoot{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+</style>

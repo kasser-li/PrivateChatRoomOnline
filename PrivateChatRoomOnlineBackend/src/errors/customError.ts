@@ -14,7 +14,7 @@ export class CustomError extends Error {
 
     // 设置错误代码
     // this.errorCode = errorCode;
-    this.errorCode = 200;
+    this.errorCode = errorCode;
     this.data = {
       errorCode: errorCode,
       message: message || "An error occurred.",

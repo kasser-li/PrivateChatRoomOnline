@@ -2,6 +2,7 @@
     "compilerOptions": {
       "target": "es6",
       "module": "commonjs",
+      // "moduleResolution": "node",
       // "baseUrl": ".",
       "paths": {
         "@/*": ["./src/*"]
@@ -12,6 +13,7 @@
       "esModuleInterop": true,
       "skipLibCheck": true,
       "forceConsistentCasingInFileNames": true,
+      // "types": ["node", "express-rate-limit"]
       // "typeRoots": ["./src/types", "./node_modules/@types" ],
     },
     "include": [

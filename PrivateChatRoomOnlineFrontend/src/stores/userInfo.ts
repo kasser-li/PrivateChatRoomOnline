@@ -15,7 +15,7 @@ export const userInfoStore = defineStore('userInfo', {
     // 修改用户信息
     setUserInfo(data: any) {
       this.$state.userInfo = data.userInfo
-      this.$state.token = data.token      
+      this.$state.token = data.token
     },
     loginOut() {
       this.$state.userInfo = {}
@@ -25,7 +25,7 @@ export const userInfoStore = defineStore('userInfo', {
   },
   // state 简单数据操作
   getters: {
-    async getUserInfo(state) {
+    getUserInfo(state) {
       return state.userInfo
     },
 

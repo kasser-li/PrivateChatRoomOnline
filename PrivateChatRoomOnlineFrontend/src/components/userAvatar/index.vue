@@ -15,12 +15,12 @@ const props = defineProps({
     },
   },
 })
-// watch(
-//   () => props.userInfo,
-//   () => {
-//     // console.log(props.userInfo)
-//   },
-// )
+watch(
+  () => props.userInfo,
+  () => {
+    console.log('userInfo', props.userInfo)
+  },
+)
 </script>
 <style lang="less">
 .user-avatar {

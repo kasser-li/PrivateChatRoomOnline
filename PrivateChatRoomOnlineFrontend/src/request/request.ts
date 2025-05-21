@@ -2,9 +2,9 @@ import axios from 'axios'
 import { getToken } from '@/utils/auth.ts'
 // 引入element-plus的message组件
 import { ElMessage } from 'element-plus'
+import router from '@/router'
 
 // 获取token
-
 const request = axios.create({
   baseURL: '/api',
   timeout: 10000,
@@ -57,19 +57,41 @@ request.interceptors.response.use(
       })
     }
     console.log('返回拦截器：', response)
-    
-    
-    if (response.status === 200 || response.data.code === 200) {
+    if (response.status === 200 && response.data.code === 200) {
       // let cookie = response.headers['etag']
       // let cookie = response.headers['set-cookie']
       // console.log('返回拦截器 cookie：', cookie)
-      return (response.data = response.data.data)
+      
+        return (response.data = response.data.data)
     } else {
+      
       return response.data
     }
   },
   (error) => {
-    // 对响应错误做点什么
+    // 对响应错误做点什么   
+
+    console.log('返回拦截器 error：', error);
+    const response = error.response
+    const { errorCode,message } = response.data.data
+    ElMessage.error(message)
+      switch(errorCode){
+        case 400:
+          router.push('/')
+          break;
+
+        case 401:
+          // ElMessage.error('登录过期，请重新登录')
+          router.push('/login')
+          break;
+        
+        case 403:
+          // ElMessage.error('权限不足，请联系管理员')
+          router.push('/')
+          break;
+        default:
+          ElMessage.error(response.data.message || 'server error')
+      }
     return Promise.reject(error)
   },
 )
